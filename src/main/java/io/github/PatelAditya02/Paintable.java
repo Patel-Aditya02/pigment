@@ -1,5 +1,7 @@
 package io.github.PatelAditya02;
 
+import java.io.PrintStream;
+
 /**
  * Something that can render text as an ANSI-formatted string, and print
  * that result to stdout.
@@ -13,11 +15,20 @@ public interface Paintable {
     /** Applies this style/color to {@code text}, returning the ANSI-formatted result. */
     String paint(String text);
 
+
     default void print(Object o) {
         System.out.print(this.paint(o.toString()));
     }
 
     default void println(Object o) {
         System.out.println(this.paint(o.toString()));
+    }
+
+    default void println(Object o, PrintStream stream){
+        stream.println(this.paint(o.toString()));
+    }
+
+    default void print(Object o, PrintStream stream){
+        stream.print(this.paint(o.toString()));
     }
 }

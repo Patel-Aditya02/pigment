@@ -4,15 +4,19 @@ import java.io.PrintStream;
 
 public class CanvasPainter implements Paintable{
 
-    private PrintStream canvas;
-    private Paintable paintable;
+    private final PrintStream canvas;
+    private final Paintable paintable;
 
-    public CanvasPainter(Paintable paintable, PrintStream canvas){
+    private CanvasPainter(Paintable paintable, PrintStream canvas){
         if(paintable == null || canvas == null) {
             throw new IllegalArgumentException("Paintable and Canvas are required and cannot be null!");
         }
         this.paintable = paintable;
         this.canvas = canvas;
+    }
+
+    public static CanvasPainter of(Paintable paintable, PrintStream canvas){
+        return new CanvasPainter(paintable, canvas);
     }
 
     public PrintStream getCanvas(){
@@ -23,14 +27,6 @@ public class CanvasPainter implements Paintable{
         return paintable;
     }
 
-    public void setCanvas(PrintStream canvas){
-        if(canvas != null) this.canvas = canvas;
-    }
-
-    public void setPaintable(Paintable paintable){
-        if(paintable != null) this.paintable = paintable;
-    }
-
     @Override
     public String paint(String text) {
         return paintable.paint(text);
@@ -38,11 +34,11 @@ public class CanvasPainter implements Paintable{
 
     @Override
     public void print(Object o) {
-        canvas.print(this.paint(o.toString()));
+        this.print(o, this.canvas);
     }
 
     @Override
     public void println(Object o) {
-        canvas.println(this.paint(o.toString()));
+        this.println(o, this.canvas);
     }
 }

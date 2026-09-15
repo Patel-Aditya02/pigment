@@ -1,7 +1,8 @@
 package io.github.PatelAditya02;
 
 import java.util.Collections;
-import java.util.EnumSet;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A reusable ANSI style definition (foreground, background, and text styles).
@@ -21,7 +22,7 @@ public class Paint implements Paintable{
 
     private Ink fg;
     private Ink bg;
-    private final EnumSet<Style> styles = EnumSet.noneOf(Style.class);
+    private final Set<Style> styles = new HashSet<>();
 
     private Paint() {}
 
