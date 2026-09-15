@@ -2,29 +2,25 @@ package io.github.PatelAditya02;
 
 import java.io.PrintStream;
 
-public class CanvasPainter implements Paintable{
+public record CanvasPainter(Paintable paintable, PrintStream canvas) implements Paintable {
 
-    private final PrintStream canvas;
-    private final Paintable paintable;
+    public static final CanvasPainter SUCCESS = CanvasPainter.of(Paint.SUCCESS);
+    public static final CanvasPainter INFO = CanvasPainter.of(Paint.INFO);
+    public static final CanvasPainter WARN = CanvasPainter.of(Paint.WARN);
+    public static final CanvasPainter ERROR = CanvasPainter.of(Paint.ERROR, System.err);
 
-    private CanvasPainter(Paintable paintable, PrintStream canvas){
-        if(paintable == null || canvas == null) {
+    public CanvasPainter {
+        if (paintable == null || canvas == null) {
             throw new IllegalArgumentException("Paintable and Canvas are required and cannot be null!");
         }
-        this.paintable = paintable;
-        this.canvas = canvas;
     }
 
-    public static CanvasPainter of(Paintable paintable, PrintStream canvas){
+    public static CanvasPainter of(Paintable paintable, PrintStream canvas) {
         return new CanvasPainter(paintable, canvas);
     }
 
-    public PrintStream getCanvas(){
-        return canvas;
-    }
-
-    public Paintable getPaintable(){
-        return paintable;
+    public static CanvasPainter of(Paintable paintable) {
+        return CanvasPainter.of(paintable, System.out);
     }
 
     @Override

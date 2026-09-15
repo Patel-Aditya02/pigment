@@ -20,6 +20,12 @@ public class Paint implements Paintable{
 
     public static final String RESET_ALL = "\033[0m";
 
+    public static final Paint SUCCESS = Paint.of(Ink.green, Style.bold);
+    public static final Paint INFO = Paint.of(Ink.CYAN, Style.italic);
+    public static final Paint WARN = Paint.of(Ink.yellow, Style.UNDERLINE);
+    public static final Paint ERROR = Paint.of(Ink.red, Style.bold);
+
+
     private Ink fg;
     private Ink bg;
     private final Set<Style> styles = new HashSet<>();
